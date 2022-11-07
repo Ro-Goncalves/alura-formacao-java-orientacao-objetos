@@ -1,0 +1,6 @@
+Oi FileWriter
+
+Minha Linha 2
+OI BufferedWriter
+
+Sou outra linha
