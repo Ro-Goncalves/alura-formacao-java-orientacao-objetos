@@ -1,52 +1,49 @@
 # Java e java.io: Streams, Reader e Writers
 
-## MENU
+Coisas que sempre teremos que fazer em nossa vida de programadores: *Trabalhar com arqauivos*; ninguém escapa disso. E não é de todo ruim, a quantidade de trabalho que dá para economizar em empresas só de criar um projeto que move, renomeia e junta arquivos não está no gibi.
 
-- [Java e java.io: Streams, Reader e Writers](#java-e-javaio-streams-reader-e-writers)
-  - [MENU](#menu)
-  - [LINKS IMPORTANTES](#links-importantes)
-  - [O QUE APRENDI](#o-que-aprendi)
-    - [ESTABELECENDO A ENTRADA](#estabelecendo-a-entrada)
-    - [INPUTSTREAM E READER](#inputstream-e-reader)
-    - [OUTPUTSTREAM E WRITER](#outputstream-e-writer)
-    - [OUTRAS ENTRADAS E SAÍDAS](#outras-entradas-e-saídas)
-    - [SAÍDA COM FILEWRITER](#saída-com-filewriter)
-    - [PRINTWRITER E PRINTSTREAM](#printwriter-e-printstream)
-    - [LEITURA COM SCANNER](#leitura-com-scanner)
-    - [PARSEANDO ARQUIVO](#parseando-arquivo)
-    - [FORMATAÇÃO DE VALORES](#formatação-de-valores)
-    - [CHARACTER SETS](#character-sets)
-    - [ENCODING NO WINDOWS](#encoding-no-windows)
-    - [ENCODING COM JAVA.IO](#encoding-com-javaio)
-    - [SERIALIZAÇÃO JAVA](#serialização-java)
-    - [SERIALIZANDO QUALQUER OBJETO](#serializando-qualquer-objeto)
-    - [SERIALIZANDO COM HERANÇA](#serializando-com-herança)
+>Gosto muito dessa parte de manipulação de arquivos.
 
-## LINKS IMPORTANTES
+Claro que nesse curso não ficarei somente com isso. **Streams** são coisas realmente poderosas em Java.
 
-[](https://www.thiengo.com.br/padrao-de-projeto-decorator-decorador)
-[](https://refactoring.guru/pt-br/design-patterns/decorator)
+## Links Importantes
 
-## O QUE APRENDI
+[THIENGO - PADRÃO DE PROJETO DECORATOR](https://www.thiengo.com.br/padrao-de-projeto-decorator-decorador)
+[REFACTORING GURU - DECORATOR](https://refactoring.guru/pt-br/design-patterns/decorator)
 
-### ESTABELECENDO A ENTRADA
+## Menu De Aulas
+
+- [Estabelecendo A Entrada](#estabelecendo-a-entrada)
+- [InputStream e Reader](#inputstream-e-reader)
+- [OUTPUTSTREAM E WRITER](#outputstream-e-writer)
+- [OUTRAS ENTRADAS E SAÍDAS](#outras-entradas-e-saídas)
+- [SAÍDA COM FILEWRITER](#saída-com-filewriter)
+- [PRINTWRITER E PRINTSTREAM](#printwriter-e-printstream)
+- [LEITURA COM SCANNER](#leitura-com-scanner)
+- [PARSEANDO ARQUIVO](#parseando-arquivo)
+- [FORMATAÇÃO DE VALORES](#formatação-de-valores)
+- [CHARACTER SETS](#character-sets)
+- [ENCODING NO WINDOWS](#encoding-no-windows)
+- [ENCODING COM JAVA.IO](#encoding-com-javaio)
+- [SERIALIZAÇÃO JAVA](#serialização-java)
+- [SERIALIZANDO QUALQUER OBJETO](#serializando-qualquer-objeto)
+- [SERIALIZANDO COM HERANÇA](#serializando-com-herança)
+
+## Aulas
+
+### Estabelecendo a entrada
 
 ---
 
-Os dados podem vir de vários lugares e fontes, por exemplo arquivo, rede e teclado,
-a isso damos o nome de fluxo de entrada, a aplicação trabalhará com essa informações
-e devolverá um fluxo de saída, que também pode ser em vários formatos.
+Os dados podem vir de vários lugares e fontes, por exemplo arquivo, rede e teclado, a isso damos o nome de fluxo de entrada; a aplicação trabalhará com essa informações e devolverá um fluxo de saída, que também pode ser em vários formatos.
 
 Começaremos nosso tabalho com um fluxo de entrada vinda de um arquivo, **lorem.txt**.
 
-Primeiro iremos ler o nosso arquivo com a classe `FileInputStream`, ela transformará
-o arquivo em uma seguência de binária, o que não é muito bom para nós humamos. O Segundo
-passo e transformar esse bits em caracteres, para tal usaremos a classe `InputStreamReader`.
-Caracteres ainda não são tão legais, vamos melhorar nossa entrada com a classe `BufferedReader`,
-agora conseguimos ler cada linha de nosso arquivos.
+Primeiro iremos ler o nosso arquivo com a classe `FileInputStream`, ela transformará o arquivo em uma sequência de binária, o que não é muito legível para nós humamos. O Segundo passo e transformar esse bits em caracteres, para tal usaremos a classe `InputStreamReader`.
+Caracteres ainda não são tão legais, vamos melhorar nossa entrada com a classe `BufferedReader`, agora conseguimos ler cada linha de nosso arquivos.
 
-A primeira classe que usamos pode não encontrar o arquivo, por isso ela retorna a exceção
-`FileNotFoundException`. Já a última pode naõ conseguir ler, podendo causar um `IOException`.
+Caso nossa primeira classe não encontre um arquivo ela retornará a exceção
+`FileNotFoundException`. Já a última pode não conseguir ler, podendo causar um `IOException`.
 
 Por fim, é sempre bom fechar o `BufferedReader`.
 
@@ -71,23 +68,15 @@ try {
 }
 ```
 
-### INPUTSTREAM E READER
+### InputStream e Reader
 
 ---
 
-Veja que para imprimirmos a primeira linha do arquivo precissamos passar por 3 classes,
-olhando esse desenho temos um padrão de projetos aqui o decorator.
+Meio que burocratico de mais o que fizemos até aqui, para conseguir ler um arquivos precisamos utilizar 3 classes, apesar disso conseguimos ver a implementação do padrão de projeto ***Decorator***. Tentei implementar uns dois exemplos sobre o assunto, não entendi muito ainda, porém não é meu foco aprender esse padrões, não ainda.
 
-Se observamos existem dois tipos de classs **Stream**, que foca na leitura de bits, e
-**Reader** que tranformas os bits em caracteres do **Stream**.
+Para alterar o tipo de entrada no código anterior seria necessário alterar a classe com a qual estamos trabalhando, e a que transforma binário em caracter. Mas é claro que uma boa alma pensou em nos ajudar nessa tarefa, ela criou a classe abstrata `InputStream` e `Reader`.
 
-Como comentamos no início podem existir várias entradas de dados, sendo assim podemos ser
-levados a pensar que existe alguma classe mais genérica do que `FileInputStream`, bingo,
-existe a `InputStream`, ela é uma classe abstrata. Do outro lado, também existe uma classe
-que se preocupa com os caracteres, a `Reader`, também abstrata, pois se trada de um
-conceito.
-
-Ora, ora, temos ai mais um padrão de projeto. O `Reader` e o `InputStream` são templates.
+Temos aqui mais um padrão de projeto os ***Templates***.
 
 ```java
 //Fluxo de entrada com arquivo. Binário
@@ -97,6 +86,8 @@ Reader isr = new InputStreamReader(fis);
 //Pegando as linhas do arquivos. Linhas
 BufferedReader br = new BufferedReader(isr);
 ```
+
+As coisas estão melhorando para o nosso lado, e iremos melhorar mais ainda.
 
 ### OUTPUTSTREAM E WRITER
 
