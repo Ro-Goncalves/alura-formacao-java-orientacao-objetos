@@ -1,4 +1,4 @@
-package curso.javaio;
+package curso.javaio.classes;
 
 public class SaldoInsuficienteException extends Exception{
 	
