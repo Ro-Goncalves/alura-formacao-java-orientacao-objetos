@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import curso.javaio.classes.Cliente;
+import curso.javaio.classes.ContaCorrente;
+
 public class TesteSerializacaoHeranca {
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
         Cliente cliente = new Cliente();
