@@ -1,34 +1,31 @@
-# Java Collection Dominando Listas, Sets e Mapas
+# Java Collection Dominando Listas, Sets e Mapas <!-- omit in toc -->
 
 ![estrutura](assets/img/estruturaClassesIterable.draowio.png)
 
-## MENU
+## Links Importantes <!-- omit in toc -->
 
-- [Java Collection Dominando Listas, Sets e Mapas](#java-collection-dominando-listas-sets-e-mapas)
-  - [MENU](#menu)
-  - [LINKS IMPORTANTES](#links-importantes)
-  - [O QUE APRENDI](#o-que-aprendi)
-    - [TRABALHANDO COM ARRAYLIST](#trabalhando-com-arraylist)
-    - [LISTAS DE OBJETOS](#listas-de-objetos)
-    - [RELACIONAMENTO COM COLEÇÕES](#relacionamento-com-coleções)
-    - [MAIS PRÁTICAS COM RELACIONAMENTOS](#mais-práticas-com-relacionamentos)
-    - [O PODER DOS SETS](#o-poder-dos-sets)
-    - [APLICANDO O SET NO MODELO](#aplicando-o-set-no-modelo)
-    - [EQUALS E HASHCODE](#equals-e-hashcode)
-    - [OUTROS SETS E ITERATORS](#outros-sets-e-iterators)
-    - [MAPAS](#mapas)
-  - [ÚLTIMAS PALAVRAS](#últimas-palavras)
-  - [UM ESTUDO EM MÉTODOS](#um-estudo-em-métodos)
-    - [COLLETIONS UNMODIFIABLESET](#colletions-unmodifiableset)
-    - [COLLECTIONS EMPTYSET](#collections-emptyset)
+* Ver sobre ArrayList, LinkedList, HashSet
+* Collections.synchronizedSet(..)
+* [JAVADOC - Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
 
-## LINKS IMPORTANTES
+## MENU <!-- omit in toc -->
 
-- Ver sobre ArrayList, LinkedList, HashSet
-- Collections.synchronizedSet(..)
-- [JAVADOC - Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
+- [Aulas](#aulas)
+  - [TRABALHANDO COM ARRAYLIST](#trabalhando-com-arraylist)
+  - [LISTAS DE OBJETOS](#listas-de-objetos)
+  - [RELACIONAMENTO COM COLEÇÕES](#relacionamento-com-coleções)
+  - [MAIS PRÁTICAS COM RELACIONAMENTOS](#mais-práticas-com-relacionamentos)
+  - [O PODER DOS SETS](#o-poder-dos-sets)
+  - [APLICANDO O SET NO MODELO](#aplicando-o-set-no-modelo)
+  - [EQUALS E HASHCODE](#equals-e-hashcode)
+  - [OUTROS SETS E ITERATORS](#outros-sets-e-iterators)
+  - [MAPAS](#mapas)
+- [ÚLTIMAS PALAVRAS](#últimas-palavras)
+- [UM ESTUDO EM MÉTODOS](#um-estudo-em-métodos)
+  - [COLLETIONS UNMODIFIABLESET](#colletions-unmodifiableset)
+  - [COLLECTIONS EMPTYSET](#collections-emptyset)
 
-## O QUE APRENDI
+## Aulas
 
 ### TRABALHANDO COM ARRAYLIST
 

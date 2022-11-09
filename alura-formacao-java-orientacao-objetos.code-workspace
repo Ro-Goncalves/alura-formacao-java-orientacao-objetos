@@ -12,6 +12,6 @@
 		"java.project.referencedLibraries": [
 			"lib/**/*.jar"
 		],
-	"markdown.extension.toc.unorderedList.marker": "*",  
+		"markdown.extension.toc.unorderedList.marker": "*",
 	}
 }
