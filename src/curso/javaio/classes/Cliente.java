@@ -1,4 +1,4 @@
-package curso.javaio;
+package curso.javaio.classes;
 
 import java.io.Serializable;
 

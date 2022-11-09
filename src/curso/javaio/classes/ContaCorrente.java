@@ -1,4 +1,4 @@
-package curso.javaio;
+package curso.javaio.classes;
 
 //new ContaCorrente()
 public class ContaCorrente extends Conta implements Tributavel {

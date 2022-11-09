@@ -22,7 +22,6 @@ public class TesteUnicodeEncoding {
             byte[] b3 = s.getBytes(StandardCharsets.UTF_16);
             System.out.println(b3.length + " - UTF16");
         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
