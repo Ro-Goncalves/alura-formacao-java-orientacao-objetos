@@ -1,14 +1,12 @@
 # Java Collection Dominando Listas, Sets e Mapas <!-- omit in toc -->
 
-![estrutura](assets/img/estruturaClassesIterable.draowio.png)
+![estrutura](assets/collections//estruturaClassesIterable.draowio.png)
 
 ## Links Importantes <!-- omit in toc -->
 
-* Ver sobre ArrayList, LinkedList, HashSet
-* Collections.synchronizedSet(..)
 * [JAVADOC - Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
 
-## MENU <!-- omit in toc -->
+## Menu <!-- omit in toc -->
 
 * [Aulas](#aulas)
   * [Trabalhando Com ArrayList](#trabalhando-com-arraylist)
@@ -19,11 +17,11 @@
   * [Aplicando O Set No Modelo](#aplicando-o-set-no-modelo)
   * [Equal e HashCode](#equal-e-hashcode)
   * [Outros Sets E Iterators](#outros-sets-e-iterators)
-  * [MAPAS](#mapas)
-* [ÚLTIMAS PALAVRAS](#últimas-palavras)
-* [UM ESTUDO EM MÉTODOS](#um-estudo-em-métodos)
-  * [COLLETIONS UNMODIFIABLESET](#colletions-unmodifiableset)
-  * [COLLECTIONS EMPTYSET](#collections-emptyset)
+  * [Mapas](#mapas)
+* [Últimas Palavras](#últimas-palavras)
+* [Um Estudo Em Métodos](#um-estudo-em-métodos)
+  * [Colletions UnmodifiableSet](#colletions-unmodifiableset)
+  * [Collections EmptySet](#collections-emptyset)
 
 ## Aulas
 
@@ -313,9 +311,9 @@ O **LinkedHashSet** garante a ordem de adição, porém ainda não temos como co
 
 Passando meio por cima desses dois pois são pouco utilizados, ao menos por mim. Em um futuro não muito distante, quero estudar todas as estruturas de dados comentados nesse breve estudo sobre coleções.
 
-### MAPAS
+### Mapas
 
-Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar com **Map**, ele funciona com chave-valor o que, ela alguns casos, facilita muito. Por obvio a chave deve ser única.
+Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar com **Map**, ele funciona com chave-valor o que, em alguns casos, facilita muito. Por obvio a chave deve ser única.
 
 **Map** é uma interface, existem algumas classes que a implementam, vamos usar uma implementação "meio que conhecida".
 
@@ -323,7 +321,7 @@ Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar co
 private Map<Integer, Aluno> matriculaParaAluno = new HashMap<>();
 ```
 
-Meio porque assim como *Set* possui o **HashSet**, *Map* possui o **HashMap**, semelhante, mas não igual. Para guardar itens dentro desse objeto:
+Meio porque, assim como *Set* possui o **HashSet**, *Map* possui o **HashMap**, semelhante, mas não igual. Para guardar itens dentro desse objeto:
 
 ```java
 this.matriculaParaAluno.put(aluno.getMatricula(), aluno);
@@ -331,25 +329,25 @@ this.matriculaParaAluno.put(aluno.getMatricula(), aluno);
 
 Ao invés de `add()`, `put()`, semelhante, mas não igual.
 
-## ÚLTIMAS PALAVRAS
+## Últimas Palavras
 
-Coleções, incluo aqui os *Maps*, são muito úteis e utilizadas em nosso dia a dia. Sei que falta intender um pouco mais a fundo como elas funcionam por baixo dos panos, porém, creio eu, para o que aprendi aqui me ajuda a resolver os problemas do meu dia a dia.
+Coleções, incluo aqui os *Maps*, são muito úteis e utilizadas em nosso dia a dia. Sei que falta entender um pouco mais a fundo como elas funcionam por baixo dos panos, porém, creio eu, para o que aprendi aqui me ajuda a resolver os problemas do meu dia a dia.
 
 Em um primeiro momento colocamos os pés na água para sentir a temperatura, conforme vamos ganhando confiança pensamos em mergulhar, até que não queremos mais sair da água.
 
 Aqui estou colocando meus pés nas águas das coleções.
 
-## UM ESTUDO EM MÉTODOS
+## Um Estudo Em Métodos
 
 Durante o curso foram apresentados alguns métodos que valem à pena se aprofundar um pouco.
 
-### COLLETIONS UNMODIFIABLESET
+### Colletions UnmodifiableSet
 
-A classe *Collecions* possui tantas quantos métodos interessantes, `unmodifiableSet(Set<? extends T> s)` é um deles.
+A classe *Collecions* possui uns tantos quantos de métodos interessantes, `unmodifiableSet(Set<? extends T> s)` é um deles.
 
 Quando desejarmos que uma aplicação não tenha permissão para alterar um conjunto de dados usamos esse método, ele auxiliará a classe a fornecer um conjunto de dados com acesso "somente leitura". Qualquer operação não permitida realizado no objeto retornado resultará na exceção `UnsupportedOperationException`. O objeto retornado ainda pode ser serializado.
 
-### COLLECTIONS EMPTYSET
+### Collections EmptySet
 
 `emptySet()` retorna um conjunto vazio e imutável, ainda serializável. Esse método garante o tipo no campo. Por exemplo, podemos utilizar esse método quando nosso *Curso* não tenha alunos cadastrados nele.
 
