@@ -12,10 +12,6 @@
 		"java.project.referencedLibraries": [
 			"lib/**/*.jar"
 		],
-<<<<<<< HEAD
-		"markdown.extension.toc.unorderedList.marker": "*",
-=======
 	"markdown.extension.toc.unorderedList.marker": "*",  
->>>>>>> java-collection
 	}
 }
