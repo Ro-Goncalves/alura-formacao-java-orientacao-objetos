@@ -1,38 +1,35 @@
-# Java Collection Dominando Listas, Sets e Mapas
+# Java Collection Dominando Listas, Sets e Mapas <!-- omit in toc -->
 
-![estrutura](assets/img/estruturaClassesIterable.draowio.png)
+![estrutura](assets/collections//estruturaClassesIterable.draowio.png)
 
-## MENU
+## Links Importantes <!-- omit in toc -->
 
-- [Java Collection Dominando Listas, Sets e Mapas](#java-collection-dominando-listas-sets-e-mapas)
-  - [MENU](#menu)
-  - [LINKS IMPORTANTES](#links-importantes)
-  - [O QUE APRENDI](#o-que-aprendi)
-    - [TRABALHANDO COM ARRAYLIST](#trabalhando-com-arraylist)
-    - [LISTAS DE OBJETOS](#listas-de-objetos)
-    - [RELACIONAMENTO COM COLEÇÕES](#relacionamento-com-coleções)
-    - [MAIS PRÁTICAS COM RELACIONAMENTOS](#mais-práticas-com-relacionamentos)
-    - [O PODER DOS SETS](#o-poder-dos-sets)
-    - [APLICANDO O SET NO MODELO](#aplicando-o-set-no-modelo)
-    - [EQUALS E HASHCODE](#equals-e-hashcode)
-    - [OUTROS SETS E ITERATORS](#outros-sets-e-iterators)
-    - [MAPAS](#mapas)
-  - [ÚLTIMAS PALAVRAS](#últimas-palavras)
-  - [UM ESTUDO EM MÉTODOS](#um-estudo-em-métodos)
-    - [COLLETIONS UNMODIFIABLESET](#colletions-unmodifiableset)
-    - [COLLECTIONS EMPTYSET](#collections-emptyset)
+* [JAVADOC - Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
 
-## LINKS IMPORTANTES
+## Menu <!-- omit in toc -->
 
-- Ver sobre ArrayList, LinkedList, HashSet
-- Collections.synchronizedSet(..)
-- [JAVADOC - Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html)
+* [Aulas](#aulas)
+  * [Trabalhando Com ArrayList](#trabalhando-com-arraylist)
+  * [Listas De Objetos](#listas-de-objetos)
+  * [Relacionamento Com Coleções](#relacionamento-com-coleções)
+  * [Mais Práticas Com Relacionamentos](#mais-práticas-com-relacionamentos)
+  * [O Poder Dos Sets](#o-poder-dos-sets)
+  * [Aplicando O Set No Modelo](#aplicando-o-set-no-modelo)
+  * [Equal e HashCode](#equal-e-hashcode)
+  * [Outros Sets E Iterators](#outros-sets-e-iterators)
+  * [Mapas](#mapas)
+* [Últimas Palavras](#últimas-palavras)
+* [Um Estudo Em Métodos](#um-estudo-em-métodos)
+  * [Colletions UnmodifiableSet](#colletions-unmodifiableset)
+  * [Collections EmptySet](#collections-emptyset)
 
-## O QUE APRENDI
+## Aulas
 
-### TRABALHANDO COM ARRAYLIST
+### Trabalhando Com ArrayList
 
-Os *ArrayLists* devem ser um dos *Objetos* que eu mais uso. Sempre preciso guardar uma lista de coisas. Depois que nos acostumamos eles são até que fáceis de usar. Quando eu comecei a programar foi um parto intender como eles funcionavam.
+---
+
+Os *ArrayLists* devem ser um dos *Objetos* que eu mais uso. Sempre preciso guardar uma "coleção de coisas". Depois que nos acostumamos eles são até que fáceis de usar. Quando eu comecei a programar foi um parto intender como eles funcionavam.
 
 A declaração deles é relativamente simples, só temos que prestar atenção em um ponto: o *Arraylist* é um tipo de objeto genérico, e pode parecer um pouco estranho para quem não está acostumado, tipo eu; nesse caso eu só aceito.
 
@@ -42,7 +39,7 @@ Nesse exemplo temos uma *Array* de *String*
 ArrayList<String> aulas = new ArrayList<>();
 ```
 
-E como toda boa classe, existe uma lista de métodos que podemos usar. Claro que não usamos todos, existem aqueles que sempre precisamos, e aqueles que procuramos na documentação.
+E como toda boa classe, existe uma lista de métodos que podemos usar. Claro que não usamos todos, existem aqueles que sempre precisamos, e aqueles que procuramos na [documentação](https://docs.oracle.com/javase/8/docs/api/java/util/List.html).
 
 O que mais iremos utilizar é o `add()`. Nem preciso explicar, certo?
 
@@ -69,7 +66,7 @@ Quanto queremos recuperar um *Objeto* de dentro do *ArrayList* utilizamos, um m�
 String primeiraAula = aulas.get(0);
 ```
 
-Olha, saber o básico de Inglês ajuda muito, até agora o que os métodos fazem foi uma tradução direta do método, e ainda tem mais. Se quisermos verificar a quantidade de elementos em um *ArrayList* usamos `size()`.
+Olha, saber o básico de Inglês ajuda muito, até agora o que os métodos fazem foi uma tradução direta do nome método, e ainda tem mais. Se quisermos verificar a quantidade de elementos em um *ArrayList* usamos `size()`.
 
 ```java
 aulas.size()
@@ -105,11 +102,13 @@ aulas.forEach(aula -> {
 });
 ```
 
-### LISTAS DE OBJETOS
+### Listas De Objetos
+
+---
 
 Essas listas são bem poderosas, elas conseguem guardar quase que qualquer coisa dentro delas, literalmente. Agora vamos ao que mais iremos guardar, provavelmente, *Objetos* gerados a partir de nossas classes.
 
-E veja, dizem que Java é complicado, mas não existe diferença entre adicionar *String* ou uma *Classe* na lista, bem tem, só o tipo que *Objeto* que estará dentro dela.
+E veja, dizem que Java é complicado, mas não existe diferença entre adicionar *String* ou uma *Classe* na lista, bem tem, só o tipo de *Objeto* que estará dentro dela.
 
 ```java
 Aula a1 = new Aula("Revisando as ArrayList", 21);
@@ -157,9 +156,11 @@ aulas.sort(Comparator.comparing(Aula::getTempo));
 
 O que está acontecendo aqui, até onde eu consigo intender é: estamos utilizando o método `sort()` do objeto **aulas**, passando como parâmetro uma instância do objeto *Comparator*, implementando o método `comparing()`, dizendo para ele comparar os objetos de **aulas** utilizando o método `getTempo()`, que retorna o tempo de cada aula.
 
-### RELACIONAMENTO COM COLEÇÕES
+### Relacionamento Com Coleções
 
-Podemos utilizar o poder do polimorfismo com nossas listas. Quando nosso objeto possui um atributo que será uma coleção de outros objetos, podemos declará-lo como uma *List*, genérico dessa forma. Dessa forma, que for usar esse atributo não precisa se preocupar com o que será enviado para ele.
+---
+
+Podemos utilizar o poder do polimorfismo em nossas listas. Quando nosso objeto possui um atributo que será uma coleção de outros objetos, podemos declará-lo como uma *List*, genérico dessa forma. Quando usarmos esse atributo não precisaremos nos preocupar com o que ele está enviando a nos.
 
 ```java
 public class Curso {
@@ -168,7 +169,7 @@ public class Curso {
     private List<Aula> aulas = new ArrayList<Aula>();
 ```
 
-Veja; para que utiliza a lista de aulas, pouco importa o tipo de lista. Tanto não importa, que podemos retornar uma lista que não pode ser modificada.
+Veja; para que utiliza a lista de aulas, pouco importa o tipo de lista. Além disso, é possível retornar uma lista que não pode ser modificada.
 
 ```java
 public List<Aula> getAulas() {
@@ -178,11 +179,15 @@ public List<Aula> getAulas() {
 
 Isso garante que somente a classe *Curso* terá permissão de manipular essa lista.
 
-Por fim, esse polimorfismo nós garante a possibilidade de trabalhar com *ArrayList* ou *LinkedList*, a depender do nosso problema; quando trabalharmos com uma lista que precisa sofre muitas alterações, inserção e remoção e interessante utilizar uma *LinkedList*; para consultar um índice especifico em um lista é recomendado a utilização de uma *LinkedList*.
+Por fim, esse polimorfismo nós garante a possibilidade de trabalhar com *ArrayList* ou *LinkedList*, a depender do nosso problema.
 
-### MAIS PRÁTICAS COM RELACIONAMENTOS
+Quando trabalharmos com uma lista que precisa sofre muitas alterações, inserção e remoção, é interessante utilizar uma *LinkedList*; para consultar um índice especifico em um lista é recomendado a utilização de um *ArrayList*.
 
-Vamos continuar de onde paramos em um passado não muito distante, retorno de listas não modificáveis. É uma boa prática não deixar que aplicações externas alterarem nossos atributos, dessa forma, para ordenar uma lista é necessário fazer uma cópia dela.
+### Mais Práticas Com Relacionamentos
+
+---
+
+Vamos continuar de onde paramos em um passado não muito distante, retorno de listas não modificáveis. É uma boa prática não deixar que aplicações externas alterarem nossos atributos. Se uma aplicação quiser fazer alguma coisa com a lista deverá criar uma cópia dela.
 
 ```java
 List<Aula> aulasImutaveis = javaColecoes.getAulas();
@@ -195,15 +200,17 @@ Podemos usar os métodos que já conhecemos nesse novo objeto.
 aulas.sort(Comparator.comparing(Aula::getTitulo));
 ```
 
-Só para título de curiosidade, não entendo nada disso ainda, essa é uma forma de retornar a soma dos tempos das aulas que estão na lista. Não aceita elementos repetidos. Métodos e consulta e remoção são mais performáticos quando trabalhamos com Sets, pois ele usa um HashSet
+Só para título de curiosidade, não entendo nada disso ainda, essa é uma forma de retornar a soma dos tempos das aulas que estão na lista.
 
 ```java
 this.aulas.stream().mapToInt(Aula::getTempo).sum();
 ```
 
-### O PODER DOS SETS
+### O Poder Dos Sets
 
-Nem só de *List* vive um *dev*, apresento-vos os **Sets**. Eles são algo similar à *List*, já que implementam a mesma interface *Colletion*, alguns métodos são simulares, outros nem tantos, outros nem existem. Enfim, serve para algo.
+---
+
+Nem só de *List* vive um *dev*, apresento-vos os **Sets**. Eles são algo similar à *List*, já que implementam a mesma interface, *Colletion*, alguns métodos são simulares, outros nem tantos, outros nem existem. Enfim, serve para algo.
 
 Por hora vamos brincar com os `HashSet<>()`.
 
@@ -232,9 +239,11 @@ boolean achei = alunos.contains("Kamyla");
 
 Um outro ponto bem legal é: os *Sets* não gravam informações repetidas, muito legal isso.
 
-### APLICANDO O SET NO MODELO
+### Aplicando O Set No Modelo
 
-Continuando na mesma pegada, depois de *String* *Classes*. Criaremos a classe `Aluno` sem nada demais. E em nossa classe *Curso* criaremos o atributo **alunos** do tipo *Set*, que trabalhará com um `HashSet<>()`.
+---
+
+Continuando na mesma pegada, depois de *String*, *Classes*. Criaremos a classe `Aluno` sem nada demais. E em nossa classe *Curso* criaremos o atributo **alunos** do tipo *Set*, que trabalhará com um `HashSet<>()`.
 
 ```java
 private Set<Aluno> alunos = new HashSet<>();
@@ -252,7 +261,7 @@ javaColecoes.matricular(a2);
 javaColecoes.matricular(a3);
 ```
 
-### EQUALS E HASHCODE
+### Equal e HashCode
 
 Agora as coisas estão começando a complicar, nosso amigo **HashSet** trabalha com um tal de *tabela de espalhamento*, o que sei sobre isso até o momento? *Sei que nada sei*. Estudarei em outro momento. Enfim, é importante intender um pouco sobre esse assunto para saber o que acontece por trás da comparação entre objetos.
 
@@ -275,7 +284,7 @@ public int hashCode() {
 }
 ```
 
-Os métodos apresentados até aqui foram criados na classe *Aluno*. Para completar o álbum vamos ensinar a classe *Cursos* verificar se ela contém um aluno.
+Os métodos apresentados até aqui foram criados na classe *Aluno*. Para completar o álbum, vamos ensinar a classe *Cursos* verificar se ela contém um aluno.
 
 ```java
 public boolean estaMatriculado(Aluno aluno) {
@@ -294,7 +303,7 @@ System.out.println("Procura com contains(): " + javaColecoes.estaMatriculado(nom
 A implementação dos métodos `equals()` e `hashCode()` pode não ser tão simples assim, por isso é recomendado seguir a [documentação](
 https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-)
 
-### OUTROS SETS E ITERATORS
+### Outros Sets E Iterators
 
 Como podemos observar existem uma gama relativamente grande de *Lists* e *Sets*. Para finalizar a parte referente aos *Sets*, comentarei brevemente mais dois.
 
@@ -302,9 +311,9 @@ O **LinkedHashSet** garante a ordem de adição, porém ainda não temos como co
 
 Passando meio por cima desses dois pois são pouco utilizados, ao menos por mim. Em um futuro não muito distante, quero estudar todas as estruturas de dados comentados nesse breve estudo sobre coleções.
 
-### MAPAS
+### Mapas
 
-Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar com **Map**, ele funciona com chave-valor o que, ela alguns casos, facilita muito. Por obvio a chave deve ser única.
+Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar com **Map**, ele funciona com chave-valor o que, em alguns casos, facilita muito. Por obvio a chave deve ser única.
 
 **Map** é uma interface, existem algumas classes que a implementam, vamos usar uma implementação "meio que conhecida".
 
@@ -312,7 +321,7 @@ Não é uma coleção, mas "bem que poderia ser". Eu gosto muito de trabalhar co
 private Map<Integer, Aluno> matriculaParaAluno = new HashMap<>();
 ```
 
-Meio porque assim como *Set* possui o **HashSet**, *Map* possui o **HashMap**, semelhante, mas não igual. Para guardar itens dentro desse objeto:
+Meio porque, assim como *Set* possui o **HashSet**, *Map* possui o **HashMap**, semelhante, mas não igual. Para guardar itens dentro desse objeto:
 
 ```java
 this.matriculaParaAluno.put(aluno.getMatricula(), aluno);
@@ -320,25 +329,25 @@ this.matriculaParaAluno.put(aluno.getMatricula(), aluno);
 
 Ao invés de `add()`, `put()`, semelhante, mas não igual.
 
-## ÚLTIMAS PALAVRAS
+## Últimas Palavras
 
-Coleções, incluo aqui os *Maps*, são muito úteis e utilizadas em nosso dia a dia. Sei que falta intender um pouco mais a fundo como elas funcionam por baixo dos panos, porém, creio eu, para o que aprendi aqui me ajuda a resolver os problemas do meu dia a dia.
+Coleções, incluo aqui os *Maps*, são muito úteis e utilizadas em nosso dia a dia. Sei que falta entender um pouco mais a fundo como elas funcionam por baixo dos panos, porém, creio eu, para o que aprendi aqui me ajuda a resolver os problemas do meu dia a dia.
 
 Em um primeiro momento colocamos os pés na água para sentir a temperatura, conforme vamos ganhando confiança pensamos em mergulhar, até que não queremos mais sair da água.
 
 Aqui estou colocando meus pés nas águas das coleções.
 
-## UM ESTUDO EM MÉTODOS
+## Um Estudo Em Métodos
 
 Durante o curso foram apresentados alguns métodos que valem à pena se aprofundar um pouco.
 
-### COLLETIONS UNMODIFIABLESET
+### Colletions UnmodifiableSet
 
-A classe *Collecions* possui tantas quantos métodos interessantes, `unmodifiableSet(Set<? extends T> s)` é um deles.
+A classe *Collecions* possui uns tantos quantos de métodos interessantes, `unmodifiableSet(Set<? extends T> s)` é um deles.
 
 Quando desejarmos que uma aplicação não tenha permissão para alterar um conjunto de dados usamos esse método, ele auxiliará a classe a fornecer um conjunto de dados com acesso "somente leitura". Qualquer operação não permitida realizado no objeto retornado resultará na exceção `UnsupportedOperationException`. O objeto retornado ainda pode ser serializado.
 
-### COLLECTIONS EMPTYSET
+### Collections EmptySet
 
 `emptySet()` retorna um conjunto vazio e imutável, ainda serializável. Esse método garante o tipo no campo. Por exemplo, podemos utilizar esse método quando nosso *Curso* não tenha alunos cadastrados nele.
 
