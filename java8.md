@@ -1,5 +1,15 @@
 # Java 8: Conheça As Novidade Dessa Versão <!-- omit in toc -->
 
+Agora o role está ficando interessante, estava meio desanimado com o tanto de teoria que estava vendo até agora. É muito massa trabalhar com as ***Lambdas Functions*** e com os ***Method Reference***, essas "tecnicas" deixam o código muito mais elegante.
+
+Meu objetivo é chegar ao "estado da arte" na escrita de códigos, esse curso está sendo um passo muito importente rumo a esse objetivo.
+
+Ao mesmo tempo que faço esse curso, estou estudando ***Git Flow***, topo de mais. Preciso disso para desenvolver sozinho, obvio que não, só não nego aprender coisas novas.
+
+>Olhar para o topo mais alto e nunca desistir de escalar a montanha.
+
+Que Deus me ajuda a superar todas as dificuldades; que meu maior objetivo seja a busca pela verdade.
+
 ## Links Importantes <!-- omit in toc -->
 
 * https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar
@@ -7,9 +17,13 @@
 
 ## Menu <!-- omit in toc -->
 
-- [Aulas](#aulas)
-  - [Default Methods](#default-methods)
-  - [Que Venham Os Lambdas](#que-venham-os-lambdas)
+* [Aulas](#aulas)
+  * [Default Methods](#default-methods)
+  * [Que Venham Os Lambdas](#que-venham-os-lambdas)
+  * [Código Mais Sucinto Com Method References](#código-mais-sucinto-com-method-references)
+  * [Streams: trabalhando Melhor Com Coleções](#streams-trabalhando-melhor-com-coleções)
+  * [Mais Streams, Collectors e APIs](#mais-streams-collectors-e-apis)
+  * [A Nova API De Datas](#a-nova-api-de-datas)
 
 ## Aulas
 
@@ -26,3 +40,11 @@ default void sort(Comparator<? super E> c){
 ### Que Venham Os Lambdas
 
 Classe anônima, interface com somente um método abstrado, da para usar lambda. Interface funcional.
+
+### Código Mais Sucinto Com Method References
+
+### Streams: trabalhando Melhor Com Coleções
+
+### Mais Streams, Collectors e APIs
+
+### A Nova API De Datas
