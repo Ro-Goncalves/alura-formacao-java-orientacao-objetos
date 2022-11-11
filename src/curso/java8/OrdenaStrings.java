@@ -13,10 +13,25 @@ public class OrdenaStrings {
         palavras.add("editora cada do código");
         palavras.add("coelum");
         
-        palavras.sort(new ComparadorPorTamanho());
+        //palavras.sort(new ComparadorPorTamanho());
+        palavras.sort((o1, o2) -> Integer.compare(o1.length(), o2.length()));
         System.out.println(palavras);
-        
-        palavras.forEach(new ImprimeNaLinha());
+               
+        //Classe anônima
+        // Consumer<String> c1Consumer = new Consumer<String>() {
+        //     @Override
+        //     public void accept(String t) {
+        //         System.out.println(t);        
+        //     }
+        // };
+
+        //lambda
+        palavras.forEach(t -> System.out.println(t));
+        System.out.println("-------------------");
+        palavras.forEach(System.out::println);
+        System.out.println("-------------------");
+        new Thread(() -> System.out.println("Executando um Runnable")).start();
+
     }
 }
 
