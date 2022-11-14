@@ -43,7 +43,22 @@ Classe anônima, interface com somente um método abstrado, da para usar lambda.
 
 ### Código Mais Sucinto Com Method References
 
+Usa uma factore
+palavras.sort(Comparator.comparing(s -> s.length()));
+
+Interface Function.
+
+Lambda dado um objeto faça.
+
+Dado uma String chame o método length.
+palavras.sort(Comparator.comparing(String::length));
+
+Funciona para casos especificos e curtos, quando invocamos um método passando poucos ou nenhum parâmetros.
+
 ### Streams: trabalhando Melhor Com Coleções
+
+As colections possuem stream
+Interface fluente
 
 ### Mais Streams, Collectors e APIs
 

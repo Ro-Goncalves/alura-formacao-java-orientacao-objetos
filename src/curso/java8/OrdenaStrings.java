@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import static java.util.Comparator.comparing;
 
 public class OrdenaStrings {
     public static void main(String[] args) {
@@ -14,8 +15,12 @@ public class OrdenaStrings {
         palavras.add("coelum");
         
         //palavras.sort(new ComparadorPorTamanho());
-        palavras.sort((o1, o2) -> Integer.compare(o1.length(), o2.length()));
+        //palavras.sort((o1, o2) -> Integer.compare(o1.length(), o2.length()));
+        //palavras.sort(Comparator.comparing(s -> s.length()));
+        //palavras.sort(Comparator.comparing(String::length));
+        palavras.sort(comparing(String::length));
         System.out.println(palavras);
+
                
         //Classe anônima
         // Consumer<String> c1Consumer = new Consumer<String>() {
