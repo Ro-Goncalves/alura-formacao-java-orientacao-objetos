@@ -12,8 +12,8 @@ Que Deus me ajuda a superar todas as dificuldades; que meu maior objetivo seja a
 
 ## Links Importantes <!-- omit in toc -->
 
-* https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar
-* https://pt.stackoverflow.com/questions/116069/qual-%C3%A9-a-finalidade-do-simbolo-no-java
+* [ORACLE - Documentação Stream](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
+* [STACKOVERFLOW - Sobre Méthod Reference](https://pt.stackoverflow.com/questions/116069/qual-%C3%A9-a-finalidade-do-simbolo-no-java)
 
 ## Menu <!-- omit in toc -->
 
@@ -61,5 +61,9 @@ As colections possuem stream
 Interface fluente
 
 ### Mais Streams, Collectors e APIs
+
+Optional nos ajuda a tabalhar com objetos, trata casos de null
+Collectors volta de stream para list
+parallelStream streams em paralelo
 
 ### A Nova API De Datas
