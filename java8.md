@@ -18,6 +18,8 @@ Que Deus me ajuda a superar todas as dificuldades; que meu maior objetivo seja a
 * [GEEKSFORGEEKS - Lambda Expressions in java 8](https://www.geeksforgeeks.org/lambda-expressions-java-8/)
 * [STACKOVERFLOW - Sobre Méthod Reference](https://pt.stackoverflow.com/questions/116069/qual-%C3%A9-a-finalidade-do-simbolo-no-java)
 * [ALURA - Java 8: Lambda Ou Method Reference? Entenda A Diferença](https://www.alura.com.br/artigos/java-8-lambda-ou-method-reference-entenda-a-diferenca)
+* [ORACLE - Processing Data With Java SE 8 Streams, Part 1](https://www.oracle.com/technical-resources/articles/java/ma14-java-se-8-streams.html)
+* [GEEKSFORGEEKS - Java 8 Stream tutorial](https://www.geeksforgeeks.org/java-8-stream-tutorial/)
 
 ## Menu <!-- omit in toc -->
 
@@ -26,6 +28,7 @@ Que Deus me ajuda a superar todas as dificuldades; que meu maior objetivo seja a
   * [Que Venham Os Lambdas](#que-venham-os-lambdas)
   * [Código Mais Sucinto Com Method References](#código-mais-sucinto-com-method-references)
   * [Streams: trabalhando Melhor Com Coleções](#streams-trabalhando-melhor-com-coleções)
+    * [Características](#características)
   * [Mais Streams, Collectors e APIs](#mais-streams-collectors-e-apis)
   * [A Nova API De Datas](#a-nova-api-de-datas)
 
@@ -67,19 +70,39 @@ Algumas caracteristicas:
 
 ### Código Mais Sucinto Com Method References
 
-Usa uma factore
-palavras.sort(Comparator.comparing(s -> s.length()));
+Se com as Lambdas somos o *Mister M* com os **Methods References** somos o *Mago Nego*. Devo concordar que é um tanto quanto difícil intender o que está acontecendo quando as olhamos pela primeira vez; confesso que ainda devem existir lacuas no meu conhecimento sobre esse tema.
 
-Interface Function.
+Fato é: o código fica realmente elegante quando utilizamos methods reference.
 
-Lambda dado um objeto faça.
-
-Dado uma String chame o método length.
+```java
 palavras.sort(Comparator.comparing(String::length));
 
-Funciona para casos especificos e curtos, quando invocamos um método passando poucos ou nenhum parâmetros.
+curso.sort(Comparator.comparing(Curso::getAlunos));
+```
+
+Os methods references podem ser vistos em `String::length` e `Curso::getAlunos`, essa é a sintaxe.
+
+Claro que eles não possuem tanto poder quanto as Lambdas, porém é sempre bom utiliza-los quando estamos trabalhando com métodos que não precisam receber parâmetros; eles possibilitam a redução na escrita dos Lambdas e para isso necessitam que o método da direita receva os mesmos parâmetros do da esquerda.
 
 ### Streams: trabalhando Melhor Com Coleções
+
+Agora é a hora de juntarmos um tanto do que vimos até agora, *Mago Do Caos*?
+
+Eis que no Java 8 surge a API Stream, a usamos para processar coleções de objetos; o massa é que elas geram um fluxo onde podemos encadear vários métodos. Como sempre éla é uma interface que da acesso ao método `stream()`.
+
+```java
+Stream magoCaos = magoNego.stream();
+```
+
+Os componentes básicos envolvidos em streams são:
+
+* Sequência de Elementos
+* Fonte
+* Operações de agregação
+* Pipelining
+* Iteração interna
+
+#### Características
 
 As colections possuem stream
 Interface fluente
