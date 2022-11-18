@@ -136,7 +136,7 @@ Por obvio existe uma grande gama de operações que podemos utilizar e encadear 
 |:---:         |:---:  |:---:        |
 |filter()<br>map()<br>sorted()|forEach()<br>collect()<br>match()<br>count()<br>reduce()|anyMatch()<br>findFirst()|
 
-As operações intermediárias retornam um stream, logo, podemos desencadear um certo tanto delas. As de terminal retornam uma instância de um determinado tipo. As de curto circuito são operações que não recebem um parâmetro, retornam algo especifico, claro que isso irá depender da operação.
+As operações intermediárias retornam um stream, logo, podemos desencadear um certo tanto delas. As de terminal retornam uma instância de um determinado tipo, produzindo o resultado do pipeline. As de curto circuito são operações que não recebem um parâmetro, retornam algo especifico, claro que isso irá depender da operação.
 
 ```java
 List<Integer> updatedMarks
@@ -157,8 +157,20 @@ Podemos comprar esse fluxo com uma consulta **SQL**, é meio que a mesma coisa.
 
 ### Mais Streams, Collectors e APIs
 
-Optional nos ajuda a tabalhar com objetos, trata casos de null
-Collectors volta de stream para list
-parallelStream streams em paralelo
+Fiz uma boa descrição sobre Streams no capítulo a cima, e o [artigo](https://www.oracle.com/technical-resources/articles/java/ma14-java-se-8-streams.html) está muito completo.
 
 ### A Nova API De Datas
+
+Agora não será necessário sofrer tanto com as datas, vemos o advento da `LocalDate`, basicamente ela resolve nossos maiores problemas com datas, como cálculo de intervalos, formatações, e tudo o que é rotina com esse tipo de objeto.
+
+Não tem muito o que falar aqui: `LocalDate. + CTRL + SPACE`, isso responde muitas perguntas.
+
+Tá, já que podemos querer mais.
+
+* Para criar uma data atual: `LocalDate.now()`
+* Para criar uma data passando valores: `LocalDate.of(2022, Month.SEPTEMBER, 20)`
+* Para cálcular a diferença de datas: `olimpiadasDate.getDayOfYear() - hoje.getDayOfYear()` ou `Period.between(hoje, olimpiadasDate)`
+* Para somar: `olimpiadasDate.plusYears(4)`
+* Para formatar: `agora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm"))`
+
+FIMMM!!!
