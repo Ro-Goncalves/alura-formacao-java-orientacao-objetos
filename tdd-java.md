@@ -10,6 +10,8 @@
   * [JUnit](#junit)
   * [Escrevendo Um Teste Com O JUnit](#escrevendo-um-teste-com-o-junit)
   * [Testando Uma Funcionalidade](#testando-uma-funcionalidade)
+  * [Conhecendo TDD](#conhecendo-tdd)
+  * [Implementando Uma Funcionalidade Com TDD](#implementando-uma-funcionalidade-com-tdd)
 
 ## Aulas
 
@@ -80,3 +82,128 @@ Se tudo estiver configurado como deve, o VS Code terá um menu lateral de teste,
 TODO: Colocar Uma Imagem Aqui.
 
 ### Testando Uma Funcionalidade
+
+Quanto mais eu me aprofundo em programação, mais eu me apaixono pelo que vejo. Muito bom ver as possibilidades que encontramos quando trabalhamos com testes automatizados. Cada vez mais estamos nós tornando magos da programação; um dia seremos o "Doutro Estranho"?
+
+Agora estamos colocando a perna na água, já da para sentir o friozinho. Iremos realizar um teste um pouco mais real. Por questão de organização criei a pasta **test**, é dentro dela que estarão meus testes. Nosso objetivo é testar a seguinte classe:
+
+```java
+public class BonusService {
+
+public BigDecimal calcularBonus(Funcionario funcionario) {
+  BigDecimal valor = funcionario.getSalario().multiply(new BigDecimal("0.1"));
+  if (valor.compareTo(new BigDecimal("1000")) > 0) {
+    valor = BigDecimal.ZERO;
+  }
+  return valor.setScale(2, RoundingMode.HALF_UP);
+}
+
+}
+```
+
+Em casos que temos uma condição que testa um valor numerico é sempre bom realizar 3 testes: Um menor do que o valor testado, uma maior e outro igual. E lembre-se:
+
+>Os nomes dos métodos devem ser o mais descritivos possível.
+
+```java
+public class BonusServiceTest {
+    
+    @Test
+    public void bonusDeveriaSerZeroParaFuncionarioComSalarioMuitoAlto(){
+        BonusService bs = new BonusService();
+        BigDecimal b = bs.calcularBonus(new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("25000")));
+
+        assertEquals(new BigDecimal("0.00"), b);
+    }
+
+    @Test
+    public void bonusDeveriaSer10PorCentoDoSalario(){
+        BonusService bs = new BonusService();
+        BigDecimal b = bs.calcularBonus(new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("2500")));
+
+        assertEquals(new BigDecimal("250.00"), b);
+    }
+
+    @Test
+    public void bonusDeveriaSer10ProCentoParaSalarioDe10000(){
+        BonusService bs = new BonusService();
+        BigDecimal b = bs.calcularBonus(new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("10000")));
+
+        assertEquals(new BigDecimal("1000.00"), b);
+    }
+}
+```
+
+Todos os sinais verdes, vida que segue.
+
+TODO: Imagem Dos Testes Passando.
+
+### Conhecendo TDD
+
+>Primeiro **Teste**; depois **Implementação**; com sorte **Refatora**.
+
+Parece estranho, sim, mas funciona. Escrever primeiro o teste nós ajuda a garantir que nosso código vai fazer exatamente, e somente, aquilo que é necessário. Além disso os testes incentivam a refatoração; se fizermos alguma cagada o teste falha na hora, é só arrumar para que ele passe.
+
+O problema aqui está na mentalidade do programador, normalmente não queremos ficar escrevendo teste, nem pensar nisso, queremos mesmo é código funcionando e rodando, queremos dar vida ao que está na cabeça das outras pessoas. "Acalme-te, escreva bons testes, isso será de grande ajuda, cedo ou tarde".
+
+O conceito é simples, e com prática e tempo iremos escrever testes cada vez melhores.
+
+### Implementando Uma Funcionalidade Com TDD
+
+Regra da nova funcionalidade:
+
+1. Se o desempenho foi "A desejar", reajuste será de 3% do salário;
+2. Se o desempenho foi "Bom", reajuste será de 15% do salário;
+3. Se o desempenho foi "Ótimo", reajuste será de 20% do salário;
+
+Primeira coisa a se pensar é: Qual o nome classe que implementará esse método? Não iremos criar a classe e sim a classe de teste, sendo assim criaremos a `ReajusteServiceTest`:
+
+```java
+public class ReajusteServiceTest {
+    
+  @Test
+  public void reajusteDeveriaSerDeTresProcentoQuandoDesempenhoForADesejar(){
+      ReajusteService rs = new ReajusteService();      
+  }
+}
+```
+
+Logo teremos uma classe `ReajusteService`, ao esrever essa parte, nosso teste não irá funcionar, deixe estar. Essa nossa clase ter uma método que cálcule o reajutes, `concederReajuste` me parece um bom nome, esse método precisa receber um funcionário, claro, e o desempenho dele, iremos querer que as possibilidades de desempenho estejam no enun `Desempenho`.
+
+```java
+public class ReajusteServiceTest {
+    
+  @Test
+  public void reajusteDeveriaSerDeTresProcentoQuandoDesempenhoForADesejar(){
+      ReajusteService rs = new ReajusteService();
+      Funcionario f = new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("1000.00"));
+
+      rs.concederReajuste(f, Desempenho.A_DESEJAR);
+
+      assertEquals(new BigDecimal("1030.00"), f.getSalario());
+  }
+}
+```
+
+Veja, até aqui não implementamos nada, a classe de teste nem compila. O interessante é que já pensamos no designer de nosso classe, já temos o nome do método, a parte mais difícil, diga-se de passagem, o que ele deve receber e o que ele deve fazer.
+
+"Ctrl + ." irá ser uma mão na roda agora. Primeiro criamos a classe `ReajusteService`, depois o método `concederReajuste`, depois o enun `Desempenho` por fim colocamos a contante **A_DESEJAR** no enun.
+
+Ufa, muito código gerado *automagicamente*, tudo compila, masss, o teste falha. Claro, falta a impementação do método `concederReajuste`. Sabemos que quando o desempenho for **A_DESEJAR** é preciso aumentar o salário em 3%, começaremos por ai. Tendo o valor do reajuste precisamos soma-lo ao salário atual, quereremos que o classe `Funcionario` realize essa operação, para isso ela precisa ter o método `reajustarSalario`, mais "Ctrl + .".
+
+```java
+public void concederReajuste(Funcionario funcionario, Desempenho desempenho) {
+    if(desempenho == Desempenho.A_DESEJAR){
+        BigDecimal reajuste = funcionario.getSalario()
+                                         .multiply(new BigDecimal("0.03"));
+        funcionario.reajustarSalario(reajuste);
+    }
+  }
+
+public void reajustarSalario(BigDecimal reajuste) {
+  this.salario = this.salario.add(reajuste)
+                             .setScale(2, RoundingMode.HALF_UP);
+}
+```
+
+Ao final do dia: Teste OK; podemos ir embora feliz.
