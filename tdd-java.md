@@ -9,6 +9,7 @@
   * [Escrevendo Um Teste Automatizado](#escrevendo-um-teste-automatizado)
   * [JUnit](#junit)
   * [Escrevendo Um Teste Com O JUnit](#escrevendo-um-teste-com-o-junit)
+  * [Testando Uma Funcionalidade](#testando-uma-funcionalidade)
 
 ## Aulas
 
@@ -54,4 +55,28 @@ Direto-Reto: Essa é a biblioteca padrão para testes automatizados em Java, mei
 
 ### Escrevendo Um Teste Com O JUnit
 
-A classe de teste deve ser CLasseTest
+No começo é tudo muito simples: Para usar JUnit nno VS Code precisamos ter uma versã odo Java maior do que 11.0 e os pluguins *Test Runner for java* e *JUnit JAR Downloader*, o segundo facilitará o download dos JARs.
+
+Tendo tudo configurado, basta criar uma classe para teste com o mesmo nome da classe a ser testada mais o sulfixo ***Test***. Cada método dessa classe representará um teste a ser feito, e é ideal que ele tenha um nome bem descritivo. Outro fator importante é anotar o método com `@Test`.
+
+```java
+import org.junit.Assert;
+import org.junit.Test;
+
+public class CalculadoraTest {
+
+  @Test
+  public void deveriaSomarDoisNumerosPositivos(){
+      Calculadora c = new Calculadora();
+      int s = c.somar(3, 7);
+
+      Assert.assertEquals(10, s);
+  }
+}
+```
+
+Se tudo estiver configurado como deve, o VS Code terá um menu lateral de teste, abrindo ele conseguiremos ver todos os testes escritos e o resultado de sua última execução
+
+TODO: Colocar Uma Imagem Aqui.
+
+### Testando Uma Funcionalidade
