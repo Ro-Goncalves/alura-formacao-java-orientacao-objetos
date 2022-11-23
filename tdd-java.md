@@ -1,5 +1,11 @@
 # TDD E Java: Teste Automatizados Com JUnit <!-- omit in toc -->
 
+Por algum motivo os desenvolvedores não gostam de escrever código, bem eu penso que o motivo é o mesmo de todas as outras profissões, geralmente o pessoal não leva o trabalho a sério. Eu, ao menos até agora, achei fantástico o que as possibilidades da utilizaçã de testes. Até agora não utilizava em meus projeto, predendo começar.
+
+Garantir que o que escrevemos está de acordo com a regra de negócio e que alterações não estragaram o que já estava certo já é um grande motivador para escrever bons testes.
+
+A cada passo que dou para dentro desse oceano eu me apaixono mais pelo mundo de desenovolvimento. Que Deus não me deixe afogar e que a Verdade seja a minha búlsola.
+
 ## Links Importantes <!-- omit in toc -->
 
 ## Menu <!-- omit in toc -->
@@ -12,16 +18,24 @@
   * [Testando Uma Funcionalidade](#testando-uma-funcionalidade)
   * [Conhecendo TDD](#conhecendo-tdd)
   * [Implementando Uma Funcionalidade Com TDD](#implementando-uma-funcionalidade-com-tdd)
+  * [Refactoring](#refactoring)
+  * [Quando usar TDD](#quando-usar-tdd)
+  * [Lidando com exceptions](#lidando-com-exceptions)
+  * [Organizando O Código De Teste](#organizando-o-código-de-teste)
+  * [Como Testar Métodos Privados](#como-testar-métodos-privados)
+  * [O Que Testar Na Aplicação](#o-que-testar-na-aplicação)
 
 ## Aulas
 
 ### Motivação Dos Teste Automatizados
 
-Essa é uma maneira de garantir que o código está funcionando; os testes manuais não conseguem dar conta de cobrir todos os cenários, levam tempo para serem realizados; os automátizados elimimam o fator humano, são mais rápidos; dão certa confiança ao mexer com código de outros desenvolvedores.
+Realmente testar é uma tarefa maçante, ficar passando parâmentros para métodos e verificando a saída não é legal. Ainda bem que alguém resolveu pensar em como automatizar essa tarefa. Essa automação possibilitou uma cobertura maior de teste no código, menor tempo de teste e menor indice de erro humano.
+
+Além de tudo isso, eles estimulam a evolução do código; podemos refatorar sem medo de errar. Veja que maravilha: refatoramos e rotamos o teste, dando tudo certo, é só publicar; dando errado voltamos à versão anterior e pronto, nada de errado.
 
 ### Escrevendo Um Teste Automatizado
 
-Acabamos de nascer para os testes; iremos começar com algo bem simples, dado um classe calculadora que sabe somente como somar, criaremos alguns testes para ela.
+Acabamos de nascer para os testes; iremos começar com algo bem simples: dado um classe calculadora que sabe somente como somar, criaremos alguns testes para ela.
 
 Afim de tentar resolver esse problema, criamos a classe `CalculadoraTestes`, nela instanciaremos a `Calculadora` e realizaremos algumas operações:
 
@@ -57,7 +71,7 @@ Direto-Reto: Essa é a biblioteca padrão para testes automatizados em Java, mei
 
 ### Escrevendo Um Teste Com O JUnit
 
-No começo é tudo muito simples: Para usar JUnit nno VS Code precisamos ter uma versã odo Java maior do que 11.0 e os pluguins *Test Runner for java* e *JUnit JAR Downloader*, o segundo facilitará o download dos JARs.
+No começo é tudo muito simples: Para usar JUnit no VS Code precisamos ter uma versã do Java maior do que 11 e os pluguins *Test Runner for java* e *JUnit JAR Downloader*, o segundo facilitará o download dos JARs.
 
 Tendo tudo configurado, basta criar uma classe para teste com o mesmo nome da classe a ser testada mais o sulfixo ***Test***. Cada método dessa classe representará um teste a ser feito, e é ideal que ele tenha um nome bem descritivo. Outro fator importante é anotar o método com `@Test`.
 
@@ -79,7 +93,7 @@ public class CalculadoraTest {
 
 Se tudo estiver configurado como deve, o VS Code terá um menu lateral de teste, abrindo ele conseguiremos ver todos os testes escritos e o resultado de sua última execução
 
-TODO: Colocar Uma Imagem Aqui.
+![TESTE-CALCULADORA](assets/tdd-java/teste-calculadora.png)
 
 ### Testando Uma Funcionalidade
 
@@ -207,3 +221,64 @@ public void reajustarSalario(BigDecimal reajuste) {
 ```
 
 Ao final do dia: Teste OK; podemos ir embora feliz.
+
+### Refactoring
+
+### Quando usar TDD
+
+Ao final da utilização do TDD já temos o código testar, fazer depois, nem sempre o teremos. Preguiça.
+Começando pelo teste evitamos testes viciados. O teste deve ser voltado ao comportamento e não implementação. Propicia a refatoração, ajuda a manter o foco. Tendência a escrever código mais simples. Vemos a real vantagem quando iremos implementar um código um pouco mais complexa.
+
+### Lidando com exceptions
+
+Testamos o valor retornado por um método, o objeto alterado pelo método ou a exceção lançada pelo método.
+
+### Organizando O Código De Teste
+
+É importante refatorar o teste também. comentar sobre essas anotações
+
+```java
+@BeforeEach
+public void inicializar(){
+  this.reajusteService = new ReajusteService();
+  this.funcionario = new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("1000.00"));
+}
+
+@AfterEach
+public void finalizar(){
+  System.out.println("Fim");
+}
+
+@BeforeAll
+public static void antesDeTodos(){
+  System.out.println("Aconteço antes de todos");
+}
+
+@AfterAll
+public static void depoisDeTodos(){
+  System.out.println("Aconteço depois de todos");
+}
+```
+
+### Como Testar Métodos Privados
+
+Resposta curta: Não precisamos.
+
+Explico: Testamos os efeitos dos métodos privados, se eles são privados quer dizer que a própria classe os utiliza para modificar algo.
+
+Por exemplo: temos o método privado `arredondarSalario` que é utilizado no método `reajustarSalario`, dessa forma, ao testar o reajustaSalario já estamos testando o arredondarSalario.
+
+```java
+public void reajustarSalario(BigDecimal reajuste) {
+  this.salario = this.salario.add(reajuste);
+  arredondarSalario();
+}
+
+private void arredondarSalario() {
+  this.salario = this.salario.setScale(2, RoundingMode.HALF_UP);
+}
+```
+
+### O Que Testar Na Aplicação
+
+Não precisa testar todas as classes e métodos. Regra de négocio, algoritmo, calculo, validações, coisas que tentem a serem alteradas no futuro.
