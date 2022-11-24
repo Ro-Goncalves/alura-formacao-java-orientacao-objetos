@@ -150,15 +150,17 @@ public class BonusServiceTest {
 
 Todos os sinais verdes, vida que segue.
 
-TODO: Imagem Dos Testes Passando.
+![TESTE-BONUSSERVICE](assets/tdd-java/teste-bonusservice.png)
 
 ### Conhecendo TDD
 
 >Primeiro **Teste**; depois **Implementação**; com sorte **Refatora**.
 
-Parece estranho, sim, mas funciona. Escrever primeiro o teste nós ajuda a garantir que nosso código vai fazer exatamente, e somente, aquilo que é necessário. Além disso os testes incentivam a refatoração; se fizermos alguma cagada o teste falha na hora, é só arrumar para que ele passe.
+Parece estranho, sim, mas funciona. Escrever primeiro o teste nos ajuda a garantir que nosso código vai fazer exatamente, e somente, aquilo que é necessário. Além disso os testes incentivam a refatoração; se fizermos alguma cagada o teste falha na hora, é só arrumar para que ele passe.
 
-O problema aqui está na mentalidade do programador, normalmente não queremos ficar escrevendo teste, nem pensar nisso, queremos mesmo é código funcionando e rodando, queremos dar vida ao que está na cabeça das outras pessoas. "Acalme-te, escreva bons testes, isso será de grande ajuda, cedo ou tarde".
+O problema aqui está na mentalidade do programador, normalmente não queremos ficar escrevendo teste, nem pensar nisso, queremos mesmo é código funcionando e rodando, queremos dar vida ao que está na cabeça das outras pessoas.
+
+>Acalme-te, escreva bons testes, isso será de grande ajuda, cedo ou tarde.
 
 O conceito é simples, e com prática e tempo iremos escrever testes cada vez melhores.
 
@@ -177,6 +179,7 @@ public class ReajusteServiceTest {
     
   @Test
   public void reajusteDeveriaSerDeTresProcentoQuandoDesempenhoForADesejar(){
+    //até aqui ReajusteService não existe
       ReajusteService rs = new ReajusteService();      
   }
 }
@@ -192,14 +195,15 @@ public class ReajusteServiceTest {
       ReajusteService rs = new ReajusteService();
       Funcionario f = new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("1000.00"));
 
+      //até aqui o método concederReajuste não existe, nem Desempenho.A_DESEJAR
       rs.concederReajuste(f, Desempenho.A_DESEJAR);
-
+     
       assertEquals(new BigDecimal("1030.00"), f.getSalario());
   }
 }
 ```
 
-Veja, até aqui não implementamos nada, a classe de teste nem compila. O interessante é que já pensamos no designer de nosso classe, já temos o nome do método, a parte mais difícil, diga-se de passagem, o que ele deve receber e o que ele deve fazer.
+Veja, até aqui não implementamos nada, a classe de teste nem compila. O interessante é que já pensamos no designe de nossa classe, já temos o nome do método, a parte mais difícil, diga-se de passagem, o que ele deve receber e o que ele deve fazer.
 
 "Ctrl + ." irá ser uma mão na roda agora. Primeiro criamos a classe `ReajusteService`, depois o método `concederReajuste`, depois o enun `Desempenho` por fim colocamos a contante **A_DESEJAR** no enun.
 
@@ -210,6 +214,7 @@ public void concederReajuste(Funcionario funcionario, Desempenho desempenho) {
     if(desempenho == Desempenho.A_DESEJAR){
         BigDecimal reajuste = funcionario.getSalario()
                                          .multiply(new BigDecimal("0.03"));
+        //até aqui não existe reajustarSalario, o criaremos.
         funcionario.reajustarSalario(reajuste);
     }
   }
@@ -224,26 +229,104 @@ Ao final do dia: Teste OK; podemos ir embora feliz.
 
 ### Refactoring
 
+Agora a ultima perna so ciclo. Os testes irão garantir que nossa alteração não "quebre" o código. Não ficou nada elegante a forma como cálculamos um monte de reajuste, por isso vamos fazer algumas alterações.
+
+A primeira será fazer com que o próprio enun retorne o percentual de reajuste, só isso já elimina o monte de ifs que foram utilizados.
+
+```java
+public enum Desempenho {
+    A_DESEJAR {
+        @Override
+        public BigDecimal percentualReajuste() {            
+            return new BigDecimal("0.03");
+        }
+    }, 
+    BOM {
+        @Override
+        public BigDecimal percentualReajuste() {
+            return new BigDecimal("0.15");
+        }
+    }, 
+    OTIMO {
+        @Override
+        public BigDecimal percentualReajuste() {
+            return new BigDecimal("0.20");
+        }
+    };
+
+    public abstract BigDecimal percentualReajuste();
+
+}
+```
+
+Agora fica fácil arrumar a classe ReajustesService, no lugar de um monte de if usamos o enun.
+
+```java
+public void concederReajuste(Funcionario funcionario, Desempenho desempenho) {        
+        BigDecimal percentual = desempenho.percentualReajuste();
+        BigDecimal reajuste = funcionario.getSalario().multiply(percentual);
+        funcionario.reajustarSalario(reajuste);
+    }
+```
+
+Testes ainda passando, refatoração realizada com sucesso.
+
 ### Quando usar TDD
 
-Ao final da utilização do TDD já temos o código testar, fazer depois, nem sempre o teremos. Preguiça.
-Começando pelo teste evitamos testes viciados. O teste deve ser voltado ao comportamento e não implementação. Propicia a refatoração, ajuda a manter o foco. Tendência a escrever código mais simples. Vemos a real vantagem quando iremos implementar um código um pouco mais complexa.
+Escrever teste antes ou depois do código? Eis a questão?
+
+Agora entramos no império da **Preguiça**, quem quer ter mais trabalho? Logo, para que escrever antes? O problema de escrever depois é o vies que teremos, já escreveremos pensando na lógica de implementação. Sem contar que estaremos cansados de pensar no problema, e tudo o que quereremos é nos livrar dele e ficar de boas.
+
+Escrevendo antes só pensaremos no designe do código e no resultado esperado, e por não estarmos cansados de pensar sobre o assunto, escreveremos bons testes, ou deveríamos. E ao finalizar a solução do problema já teremos os senários de testes prontos, é só rodar e ser feliz.
+
+Bem, vejo que antes é melhor, pois enquanto escrevemos o código de teste já pensamos no comportamente esperado de nossa classe ou método, quando formos implementa-lo já teremos meio caminho andado.
 
 ### Lidando com exceptions
 
-Testamos o valor retornado por um método, o objeto alterado pelo método ou a exceção lançada pelo método.
+O Junit nós permite testar uma exceção de duas formas:
+
+Em uma podemos usar o método `assertThrows()` passando como parâmetro a classe de erro esperado, e a chamada do método, é importante notar que `assertTrows` espera uma Lambda nesse caso.
+
+```java
+assertThrows(
+  IllegalArgumentException.class,
+  () -> bs.calcularBonus(new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("25000")))
+);
+```
+
+Em um outro modelo, podemos usar o `try catch`, se a chamada do método não retornar um erro, usamos o método `fail()`, isso força o JUnit a falhar o teste; se não passar podemos deixar o catch sem implementação. Ouuuu, esse abordagem permite testar a mensagem de retorno. Lindo.
+
+```java
+try {
+    bs.calcularBonus(new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("25000")));
+    fail("Não deu bom");
+} catch (Exception e) {
+    assertEquals("Funcionário com salário maior do que R$10.000,00 não pode receber bônus", e.getMessage());
+}
+```
 
 ### Organizando O Código De Teste
 
-É importante refatorar o teste também. comentar sobre essas anotações
+Já que refatoramos a implementação do requisito, vamos refatorar também o teste. Em nossa primeira implementação instânciamos várias veses a classe **ReajusteService** e **Funcionários**, vamos começar por ai, criar atributos em nossa classe. Além disso podemos utilizar a tag `@BeforeEach`, ela faz com que a classe `iniciarlizar()` seja executada antes de cada teste.
 
 ```java
-@BeforeEach
-public void inicializar(){
-  this.reajusteService = new ReajusteService();
-  this.funcionario = new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("1000.00"));
-}
+ private ReajusteService reajusteService;
+  private Funcionario funcionario;
 
+  @BeforeEach
+  public void inicializar(){
+      this.reajusteService = new ReajusteService();
+      this.funcionario = new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("1000.00"));
+  }
+```
+
+Já melhorou um tanto, e para fins didáticos vamos ver algumas outras anotações:
+
+* `@AfterEach` é executado após cada teste;
+* `@BeforeAll` é executado antes de todo mundo;
+* `@AfterAll` é executado depois de todo mundo.
+
+```java
 @AfterEach
 public void finalizar(){
   System.out.println("Fim");
@@ -281,4 +364,12 @@ private void arredondarSalario() {
 
 ### O Que Testar Na Aplicação
 
-Não precisa testar todas as classes e métodos. Regra de négocio, algoritmo, calculo, validações, coisas que tentem a serem alteradas no futuro.
+>Claro que tudo não, só o que interessa.
+
+O mais importante a se testar são as regras de négocio, cálculos, validações, enfim, todo código que sobre alteração constante e possui relevância para o négocio.
+
+>Qual o valor de testar geters e seters que não possuem lógica alguma?
+
+Esse é o fim de uma breve introdução.
+
+>Que Deus ilumine minha inteligência para que eu seja capas de ser persistente nessa caminhada e tenha cada vez mais vontade de adentrar nesse universo de programação.
